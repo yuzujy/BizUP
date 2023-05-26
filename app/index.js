@@ -1,48 +1,123 @@
-import { useState } from 'react';
-import { View, ScrollView, SafeAreaView } from 'react-native';
-import { Stack, useRouter, Link } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  Image, 
+  TextInput,
+  Button,
+  TouchableOpacity, 
+} from 'react-native';
+import { FONT } from '../constants';
+import { Stack, useRouter } from 'expo-router';
 
-import { COLORS, icons, images, SIZES } from '../constants';
-import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome 
-} from '../components';
+export default function App() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
-const Home = () => {
-    const router = useRouter();
+  return (
+    <View style={styles.container}>
+      <Image style={styles.image} source = {require("../assets/logo.png")}/> 
+      
+      <StatusBar style="auto" />
+      <View style={styles.inputView}>
+        <TextInput
+          style={{ fontFamily: FONT.regular, fontSize: 18 }}
+          placeholder="Email / Phone Number"
+          placeholderTextColor="#829494"
+          TextEntry={true}
+          onChangeText={(email) => setEmail(email)}
+        />
+      </View> 
 
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-            <Stack.Screen
-            options={{
-                headerStyle: { backgroundColor: COLORS.lightWhite },
-                headerShadowVisible: false,
-                headerLeft: () => (
-                    <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-                ),
-                headerRight: () => (
-                    <ScreenHeaderBtn iconUrl={icons.profile} dimension="100%" />
-                ),
-                headerTitle: ""
-            }}
-            />
+      <View style={styles.inputView}>
+        <TextInput
+          style={{ fontFamily: FONT.regular, fontSize: 18 }}
+          placeholder="Password"
+          placeholderTextColor="#829494"
+          secureTextEntry={true}
+          onChangeText={(password) => setPassword(password)}
+        /> 
+      </View>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View
-                style={{
-                    flex: 1,
-                    padding: SIZES.medium
-                }}
-                >
-                    <Welcome
+      <TouchableOpacity style={styles.register_account} onPress={() => {
+        router.push('./register')}}>
+        <Text style={{ fontFamily: FONT.regular, fontSize: 18 }}>
+          Don't have an account? Register here.
+        </Text>
+      </TouchableOpacity>
 
-                    />
+      <TouchableOpacity style={styles.forgot_button}>
+        <Text style={{ fontFamily: FONT.regular, fontSize: 18 }}>
+          Forgot Password?
+        </Text>
+      </TouchableOpacity> 
 
-                    <Popularjobs />
-                    <Nearbyjobs />
-                </View>
-            </ScrollView>
-            <Link href="/profile"> Open profile </Link>
-        </SafeAreaView>
-    )
+      <TouchableOpacity style={styles.loginBtn} onPress={() => {
+        router.push('./home')}}>
+        <Text style={{ fontFamily: FONT.bold, fontSize: 27, textAlignVertical: "center",
+        textAlign: "center"}}>
+          LOGIN
+          </Text> 
+      </TouchableOpacity> 
+    </View>
+  );
 }
 
-export default Home;
+// Logo image styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#a6e3e0',
+    alignItems: 'center',
+  },
+
+  image :{
+    height: 450,
+    marginBottom: 0,
+  },
+
+  inputView: {
+    backgroundColor: "#f5fcfc",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    justifyContent:"center",
+    alignItems: "center",
+  },
+
+  TextInput: {
+    height: 45,
+    flex: 1,
+    padding: 0,
+    marginLeft: 20,
+    justifyContent:"center",
+  },
+
+  register_account: {
+    height: 35,
+    marginBottom: 0,
+  },
+
+  forgot_button: {
+    height: 70,   
+    marginBottom: 0,
+  },
+
+  loginBtn:
+  {
+    width:"80%",
+    borderRadius:25,
+    height:50,
+    alignItems:"center",
+    justifyContent:"center",
+    marginTop: 0,
+    backgroundColor:"#27b8b0",
+  },
+});
+
+
+
