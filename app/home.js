@@ -1,48 +1,59 @@
-import { useState } from 'react';
-import { View, ScrollView, SafeAreaView } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import React, { useState } from "react";
+import { View, SafeAreaView, FlatList } from "react-native";
 
-import { COLORS, icons, images, SIZES } from '../constants';
-import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome 
-} from '../components';
+import { NFTCard, HomeHeader, FocusedStatusBar } from "../components";
+import { COLORS, NFTData } from "../constants";
 
 const Home = () => {
-    const router = useRouter();
+  const [nftData, setNftData] = useState(NFTData);
 
-    return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-            <Stack.Screen
-            options={{
-                headerStyle: { backgroundColor: COLORS.lightWhite },
-                headerShadowVisible: false,
-                headerLeft: () => (
-                    <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" handlePress={() => {
-                        router.push('./menu')}}/>
-                ),
-                headerRight: () => (
-                    <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
-                ),
-                headerTitle: "BizUP"
-            }}
-            />
+  const handleSearch = (value) => {
+    if (value.length === 0) {
+      setNftData(NFTData);
+    }
 
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <View
-                style={{
-                    flex: 1,
-                    padding: SIZES.medium
-                }}
-                >
-                    <Welcome
+    const filteredData = NFTData.filter((item) =>
+      item.name.toLowerCase().includes(value.toLowerCase())
+    );
 
-                    />
+    if (filteredData.length === 0) {
+      setNftData(NFTData);
+    } else {
+      setNftData(filteredData);
+    }
+  };
 
-                    <Popularjobs />
-                    <Nearbyjobs />
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    )
-}
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <FocusedStatusBar backgroundColor='#a6e3e0' />
+      <View style={{ flex: 1 }}>
+        <View style={{ zIndex: 0 }}>
+          <FlatList
+            data={nftData}
+            renderItem={({ item }) => <NFTCard data={item} />}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            ListHeaderComponent={<HomeHeader onSearch={handleSearch} />}
+          />
+        </View>
+
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            zIndex: -1,
+          }}
+        >
+          <View
+            style={{ height: 300, backgroundColor:'#a6e3e0' }} />
+          <View style={{ flex: 1, backgroundColor: COLORS.white }} />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 export default Home;

@@ -1,29 +1,22 @@
-import ScreenHeaderBtn from "./common/header/ScreenHeaderBtn";
-
-// home screen
-import Welcome from "./home/welcome/Welcome";
-import Nearbyjobs from "./home/nearby/Nearbyjobs";
-import Popularjobs from "./home/popular/Popularjobs";
-
-// job details screen
-import Company from "./jobdetails/company/Company";
-import { default as JobTabs } from "./jobdetails/tabs/Tabs";
-import { default as JobAbout } from "./jobdetails/about/About";
-import { default as JobFooter } from "./jobdetails/footer/Footer";
-import Specifics from "./jobdetails/specifics/Specifics";
-
-// common
-import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
+import HomeHeader from "./HomeHeader";
+import NFTCard from "./NFTCard";
+import { RectButton, CircleButton } from "./Button";
+import { SubInfo, People, EndDate, EthPrice, NFTTitle } from "./SubInfo";
+import DetailsBid from "./DetailsBid";
+import FocusedStatusBar from "./FocusedStatusBar";
+import DetailsDesc from './DetailsDesc';
 
 export {
-  ScreenHeaderBtn,
-  Welcome,
-  Nearbyjobs,
-  Popularjobs,
-  Company,
-  JobTabs,
-  JobAbout,
-  JobFooter,
-  Specifics,
-  NearbyJobCard
+  HomeHeader,
+  NFTCard,
+  SubInfo,
+  People,
+  EndDate,
+  RectButton,
+  CircleButton,
+  EthPrice,
+  NFTTitle,
+  DetailsBid,
+  FocusedStatusBar,
+  DetailsDesc,
 };

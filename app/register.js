@@ -23,7 +23,7 @@ export default function Register() {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source = {require("../assets/logo.png")}/> 
+      <Image style={styles.image} source = {require("../assets/bizuplogo.png")}/> 
       
       <StatusBar style="auto" />
 

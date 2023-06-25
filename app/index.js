@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source = {require("../assets/logo.png")}/> 
+      <Image style={styles.image} source = {require("../assets/bizuplogo.png")}/> 
       
       <StatusBar style="auto" />
       <View style={styles.inputView}>
