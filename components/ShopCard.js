@@ -3,12 +3,12 @@ import React from "react";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
-import { SubInfo, EthPrice, NFTTitle } from "./SubInfo";
+import { SubInfo, EthPrice, ShopTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
 
 import { Stack, useRouter } from 'expo-router';
 
-const NFTCard = ({ data }) => {
+const ShopCard = ({ data }) => {
   //const navigation = useNavigation();
   const router = useRouter();
 
@@ -45,7 +45,7 @@ const NFTCard = ({ data }) => {
       <SubInfo location={data.location} />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
-        <NFTTitle
+        <ShopTitle
           title={data.name}
           subTitle={data.services.join(' ')}
           titleSize={SIZES.large}
@@ -73,4 +73,4 @@ const NFTCard = ({ data }) => {
   );
 };
 
-export default NFTCard;
+export default ShopCard;
