@@ -17,6 +17,33 @@ export default function App() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  const handleLogin = () => {
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    fetch('http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=bizup&table=user_info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        response.json();
+        if (responseData.success) {
+          router.push('./home');
+        } else {
+          alert(response[0].Message);
+        }
+      })
+      .catch((error) => {
+        alert("Error"+error);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <Image style={styles.image} source = {require("../assets/bizuplogo.png")}/> 
@@ -25,7 +52,7 @@ export default function App() {
       <View style={styles.inputView}>
         <TextInput
           style={{ fontFamily: FONT.regular, fontSize: 18 }}
-          placeholder="Email / Phone Number"
+          placeholder="Email"
           placeholderTextColor="#829494"
           TextEntry={true}
           onChangeText={(email) => setEmail(email)}
@@ -57,7 +84,7 @@ export default function App() {
       </TouchableOpacity> 
 
       <TouchableOpacity style={styles.loginBtn} onPress={() => {
-        router.push('./home')}}>
+        handleLogin}}>
         <Text style={{ fontFamily: FONT.bold, fontSize: 27, textAlignVertical: "center",
         textAlign: "center"}}>
           LOGIN

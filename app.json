@@ -5,6 +5,8 @@
       "bundler": "metro"
     },
     "name": "BizUP",
-    "slug": "BizUP"
-  }
+    "slug": "BizUP",
+    "sdkVersion": "48.0.0"
+  },
+  "name": "bizup"
 }

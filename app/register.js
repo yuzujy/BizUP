@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import {
@@ -15,12 +17,64 @@ import { FONT } from '../constants';
 import { Stack, useRouter } from 'expo-router';
 
 export default function Register() {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
 
+  const router = useRouter();
+  
+
+  const handleRegister = () => {
+    if (username.length == 0 || phone.length == 0 || email.length == 0 || password.length == 0) {
+      alert("Required field is missing");
+    } else {
+      var InsertAPIURL = "http://192.168.0.109/BizUP/all_php_functions/register_user.php";
+      var headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      };
+      var DATA = {
+        username: username,
+        phone: phone,
+        email: email,
+        password: password,
+      };
+      fetch(InsertAPIURL, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(DATA),
+      })
+        .then((response) => response.json()) 
+        .then((response) => {
+          alert(response[0].Message);
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+    }
+    router.back();
+  };
+  
+  
+    
+  
+
+  //   try {
+  //     const response = await axios.post('http://localhost/BizUP/all_php_functions/register_user.php', {
+  //       username,
+  //       phone,
+  //       email,
+  //       password,
+  //     });
+  //     console.log(response.data);
+  //     router.back(); // You can handle the response as per your requirement
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  
   return (
     <View style={styles.container}>
       <Image style={styles.image} source = {require("../assets/bizuplogo.png")}/> 
@@ -38,27 +92,28 @@ export default function Register() {
       <View style={styles.inputView}>
         <TextInput
           style={{ fontSize: 18 }}
-          placeholder="  Name:"
+          placeholder="Username:"
           placeholderTextColor="#829494"
           TextEntry={true}
-          onChangeText={(name) => setName(name)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
 
       <View style={styles.inputView}>
         <TextInput
           style={{ fontSize: 18 }}
-          placeholder="  Phone Number:"
+          placeholder="Phone Number:"
           placeholderTextColor="#829494"
+          keyboardType={"numeric"}
           TextEntry={true}
-          onChangeText={(number) => setNumber(number)}
+          onChangeText={(phone) => setPhone(phone)}
         />
       </View> 
 
       <View style={styles.inputView}>
         <TextInput
           style={{ fontSize: 18 }}
-          placeholder="  Email:"
+          placeholder="Email:"
           placeholderTextColor="#829494"
           TextEntry={true}
           onChangeText={(email) => setEmail(email)}
@@ -68,7 +123,7 @@ export default function Register() {
       <View style={styles.inputView}>
         <TextInput
           style={{ fontSize: 18 }}
-          placeholder="  Password:"
+          placeholder="Password:"
           placeholderTextColor="#829494"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
@@ -77,11 +132,10 @@ export default function Register() {
 
       <Text style={{ fontFamily: FONT.regular, fontSize: 23, fontWeight: '600', fontStyle: 'italic',
     marginTop: 10 }}> 
-      Welcome {name}!
+      Welcome {username}!
       </Text>
 
-      <TouchableOpacity style={styles.registerBtn} onPress={() => {
-        router.back()}}>
+      <TouchableOpacity style={styles.registerBtn} onPress={handleRegister}>
         <Text style={{ fontSize: 27, fontWeight: "700" }}>
           Register
           </Text> 
@@ -143,3 +197,4 @@ const styles = StyleSheet.create({
     backgroundColor:"#27b8b0",
   },
 });
+
