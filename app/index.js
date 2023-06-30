@@ -13,36 +13,40 @@ import { FONT } from '../constants';
 import { Stack, useRouter } from 'expo-router';
 
 export default function App() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
   const handleLogin = () => {
-    const data = {
-      email: email,
-      password: password,
-    };
-
-    fetch('http://localhost/phpmyadmin/index.php?route=/sql&pos=0&db=bizup&table=user_info', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        response.json();
-        if (responseData.success) {
-          router.push('./home');
-        } else {
-          alert(response[0].Message);
-        }
+    if (username.length == 0 || password.length == 0) {
+      alert("Required field is missing");
+    } else {
+      var InsertURL = "http://192.168.0.102/BizUP/all_php_functions/login.php";
+      var headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      };
+      var data = {
+        username: username,
+        password: password,
+      };
+      fetch(InsertURL, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(data),
       })
-      .catch((error) => {
-        alert("Error"+error);
-      });
-  };
+        .then((response) => response.json()) 
+        .then((response) => {
+          alert(response[0].Message);
+          if (response[0].Message == 'Welcome, ' + username) {
+            router.push('./home');
+          }
+        })
+        .catch((error) => {
+          alert("Error: " + error);
+        });
+    }
+    };
 
   return (
     <View style={styles.container}>
@@ -55,7 +59,7 @@ export default function App() {
           placeholder="Email"
           placeholderTextColor="#829494"
           TextEntry={true}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View> 
 
@@ -83,8 +87,7 @@ export default function App() {
         </Text>
       </TouchableOpacity> 
 
-      <TouchableOpacity style={styles.loginBtn} onPress={() => {
-        handleLogin}}>
+      <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text style={{ fontFamily: FONT.bold, fontSize: 27, textAlignVertical: "center",
         textAlign: "center"}}>
           LOGIN
