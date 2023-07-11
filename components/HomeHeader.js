@@ -1,13 +1,19 @@
-import React from "react";
-import { View, Text, Image, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 import { MenuButton } from "./Button";
 
 import { useRouter } from 'expo-router';
 
-const HomeHeader = ({ onSearch }) => {
+const HomeHeader = ({ onSearch, onPriceFilter, selectedPrices }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const router = useRouter();
+
   return (
     <View
       style={{
@@ -59,7 +65,7 @@ const HomeHeader = ({ onSearch }) => {
             paddingHorizontal: SIZES.font,
             paddingVertical: SIZES.small - 2,
           }}
-        >
+        > 
           <Image
             source={assets.search}
             resizeMode="contain"
@@ -70,7 +76,95 @@ const HomeHeader = ({ onSearch }) => {
             style={{ flex: 1 }}
             onChangeText={onSearch}
           />
+        <TouchableOpacity onPress={toggleDropdown}>
+          <Image
+            source={assets.filter}
+            resizeMode="contain"
+            style={{ width: 20, height: 20, marginLeft: 10 }}
+          />
+        </TouchableOpacity>
+      </View>
+
+      {showDropdown && (
+        <View style={{ backgroundColor: "#fff", padding: 10, marginTop: 10 }}>
+          <Text>Price Range</Text>
+          <TouchableOpacity onPress={() => onPriceFilter("$")}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderWidth: 1,
+                  borderColor: COLORS.black,
+                  marginRight: SIZES.base,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {selectedPrices.includes("$") && (
+                  <Image
+                    source={assets.tick}
+                    resizeMode="contain"
+                    style={{ width: 10, height: 10 }}
+                  />
+                )}
+              </View>
+              <Text>$</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onPriceFilter("$$")}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderWidth: 1,
+                  borderColor: COLORS.black,
+                  marginRight: SIZES.base,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {selectedPrices.includes("$$") && (
+                  <Image
+                    source={assets.tick}
+                    resizeMode="contain"
+                    style={{ width: 10, height: 10 }}
+                  />
+                )}
+              </View>
+              <Text>$$</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onPriceFilter("$$$")}>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderWidth: 1,
+                  borderColor: COLORS.black,
+                  marginRight: SIZES.base,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {selectedPrices.includes("$$$") && (
+                  <Image
+                    source={assets.tick}
+                    resizeMode="contain"
+                    style={{ width: 10, height: 10 }}
+                  />
+                )}
+              </View>
+              <Text>$$$</Text>
+            </View>
+          </TouchableOpacity>
+          <Text>Location</Text>
+          <Text>Appointment Availability</Text>
         </View>
+      )}
+  
       </View>
     </View>
   );
