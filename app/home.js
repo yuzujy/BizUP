@@ -6,46 +6,85 @@ import { COLORS, ShopData } from "../constants";
 
 const Home = () => {
   const [sData, setShopData] = useState(ShopData);
-  const [selectedPrices, setSelectedPrices] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState({
+    prices: [],
+    locations: [],
+  });
 
+  const handleFilter = (type, value) => {
+    const { prices, locations } = selectedFilters;
+    let updatedPrices = [...prices];
+    let updatedLocations = [...locations];
+  
+    if (type === "price") {
+      const index = prices.indexOf(value);
+      if (index !== -1) {
+        updatedPrices.splice(index, 1);
+      } else {
+        updatedPrices.push(value);
+      }
+    } else if (type === "location") {
+      const index = locations.indexOf(value);
+      if (index !== -1) {
+        updatedLocations.splice(index, 1);
+      } else {
+        updatedLocations.push(value);
+      }
+    }
+  
+    setSelectedFilters({ prices: updatedPrices, locations: updatedLocations });
+  
+    // Filter shops based on selected prices and locations
+    let filteredData = ShopData;
+  
+    if (updatedPrices.length > 0) {
+      filteredData = filteredData.filter((item) =>
+        updatedPrices.includes(item.price)
+      );
+    }
+  
+    if (updatedLocations.length > 0) {
+      filteredData = filteredData.filter((item) =>
+        updatedLocations.includes(item.location)
+      );
+    }
+  
+    if (filteredData.length === 0) {
+      filteredData = [];
+    }
+  
+    setShopData(filteredData);
+  };
+    
   const handleSearch = (value) => {
     const filteredData = ShopData.filter((item) =>
       item.name.toLowerCase().includes(value.toLowerCase())
     );
-
-    // Filter shops based on selected prices
-    const priceFilteredData = filteredData.filter((item) =>
-      selectedPrices.includes(item.price)
-    );
-
-    setShopData(priceFilteredData);
-  };
-
-  const handlePriceFilter = (price) => {
-    const isSelected = selectedPrices.includes(price);
-    let updatedSelectedPrices = [];
   
-    if (isSelected) {
-      // Remove price from selectedPrices
-      updatedSelectedPrices = selectedPrices.filter(
-        (selectedPrice) => selectedPrice !== price
+    // Apply the existing selected filters on search
+    const { prices, locations } = selectedFilters;
+  
+    let filteredLocations = filteredData;
+    if (prices.length > 0) {
+      filteredLocations = filteredData.filter((item) =>
+        prices.includes(item.price)
       );
-    } else {
-      // Add price to selectedPrices
-      updatedSelectedPrices = [...selectedPrices, price];
     }
   
-    setSelectedPrices(updatedSelectedPrices);
+    let filteredResults = filteredLocations;
+    if (locations.length > 0) {
+      filteredResults = filteredLocations.filter((item) =>
+        locations.includes(item.location)
+      );
+    }
   
-    // Filter shops based on selected prices
-    const filteredData = updatedSelectedPrices.length > 0
-      ? ShopData.filter((item) => updatedSelectedPrices.includes(item.price))
-      : ShopData;
+    if (filteredResults.length === 0) {
+      filteredResults = [];
+    }
   
-    setShopData(filteredData);
-  };
+    setShopData(filteredResults);
+  };   
   
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FocusedStatusBar backgroundColor="#a6e3e0" />
@@ -59,8 +98,9 @@ const Home = () => {
             ListHeaderComponent={
               <HomeHeader
                 onSearch={handleSearch}
-                onPriceFilter={handlePriceFilter}
-                selectedPrices={selectedPrices}
+                handleFilter={handleFilter}
+                selectedPrices={selectedFilters.prices}
+                selectedLocations={selectedFilters.locations}
               />
             }
           />
