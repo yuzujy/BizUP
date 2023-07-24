@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import {
@@ -29,7 +27,7 @@ export default function Register() {
     if (username.length == 0 || phone.length == 0 || email.length == 0 || password.length == 0) {
       alert("Required field is missing");
     } else {
-      var InsertAPIURL = "http://192.168.0.102/BizUP/all_php_functions/register_user.php";
+      var InsertAPIURL = "http://192.168.10.145//BizUP/all_php_functions/register_user.php";
       var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -48,33 +46,16 @@ export default function Register() {
         .then((response) => response.json()) 
         .then((response) => {
           alert(response[0].Message);
-        })
+          if (response[0].Message == "Registering New Account") {
+            router.back();
+        }
+    })
         .catch((error) => {
           alert("Error: " + error);
         });
     }
-    router.back();
   };
-  
-  
     
-  
-
-  //   try {
-  //     const response = await axios.post('http://localhost/BizUP/all_php_functions/register_user.php', {
-  //       username,
-  //       phone,
-  //       email,
-  //       password,
-  //     });
-  //     console.log(response.data);
-  //     router.back(); // You can handle the response as per your requirement
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  
   return (
     <View style={styles.container}>
       <Image style={styles.image} source = {require("../assets/bizuplogo.png")}/> 

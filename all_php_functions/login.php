@@ -8,12 +8,9 @@ $DecodedData=json_decode($EncodedData,true);
 $username=$DecodedData["username"] ?? '';
 $password=$DecodedData["password"] ?? '';
 
-/*$username="tester00";
-$password="tester";*/
 
 if($conn){
     if(strlen($password)>20 || strlen($password)==0){
-        //echo"Password must be more than 0 and less than 20";
         $Message="Password must be more than 0 and less than 20";
     }
     elseif(strlen($username)==0){

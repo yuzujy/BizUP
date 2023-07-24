@@ -4,15 +4,6 @@ require "conn.php";
 $EncodedData=file_get_contents('php://input');
 $DecodedData=json_decode($EncodedData,true);
 
-// $username=$_POST["username"];
-// $password=$_POST["password"];
-// $phone=$_POST["phone"];
-// $email=$_POST["email"];
-
-// $username="admin";
-// $password="admin";
-// $phone="99999999";
-// $email='admin';
 $username = $DecodedData["username"] ?? '';
 $password = $DecodedData["password"] ?? '';
 $phone = $DecodedData["phone"] ?? '';
