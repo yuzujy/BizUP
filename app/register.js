@@ -27,7 +27,7 @@ export default function Register() {
     if (username.length == 0 || phone.length == 0 || email.length == 0 || password.length == 0) {
       alert("Required field is missing");
     } else {
-      var InsertAPIURL = "http://192.168.0.109/BizUP/all_php_functions/register_user.php";
+      var InsertAPIURL = "http://192.168.10.145//BizUP/all_php_functions/register_user.php";
       var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
