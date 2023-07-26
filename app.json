@@ -6,13 +6,7 @@
     },
     "name": "BizUP",
     "slug": "BizUP",
-    "sdkVersion": "48.0.0",
-    "ios": {
-      "bundleIdentifier": "com.BizUP.BizUP"
-    },
-    "android": {
-      "package": "com.BizUP.BizUP"
-    }
+    "sdkVersion": "48.0.0"
   },
   "name": "bizup"
 }

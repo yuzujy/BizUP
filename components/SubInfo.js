@@ -70,7 +70,7 @@ export const People = () => {
   );
 };
 
-export const Loc = ({ location }) => {
+export const EndDate = ({ location }) => {
   return (
     <View
       style={{
@@ -110,7 +110,7 @@ export const SubInfo = ( {location} ) => {
       }}
     >
       <People />
-      <Loc location={location}/>
+      <EndDate location={location}/>
     </View>
   );
 };
