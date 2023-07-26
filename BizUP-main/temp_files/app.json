@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "BizUP",
+    "slug": "BizUP",
+    "sdkVersion": "48.0.0"
+  },
+  "name": "bizup"
+}
