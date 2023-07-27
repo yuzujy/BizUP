@@ -1,17 +1,23 @@
-import React from "react";
-import { View, Text, Image, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 
 import { COLORS, FONTS, SIZES, assets } from "../constants";
 import { MenuButton } from "./Button";
 
 import { useRouter } from 'expo-router';
 
-const HomeHeader = ({ onSearch }) => {
+const HomeHeader = ({ onSearch, handleFilter, selectedPrices, selectedLocations }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   const router = useRouter();
+
   return (
     <View
       style={{
-        backgroundColor:'#a6e3e0',
+        backgroundColor: '#a6e3e0',
         padding: SIZES.font,
       }}
     >
@@ -22,7 +28,7 @@ const HomeHeader = ({ onSearch }) => {
           alignItems: "center",
         }}
       >
-        <MenuButton iconUrl={assets.menu} handlePress={() => {router.push('./menu')}} />
+        <MenuButton iconUrl={assets.menu} handlePress={() => { router.push('./menu') }} />
       </View>
 
       <View style={{ marginVertical: SIZES.font }}>
@@ -70,7 +76,221 @@ const HomeHeader = ({ onSearch }) => {
             style={{ flex: 1 }}
             onChangeText={onSearch}
           />
+          <TouchableOpacity onPress={toggleDropdown}>
+            <Image
+              source={assets.filter}
+              resizeMode="contain"
+              style={{ width: 20, height: 20, marginLeft: 10 }}
+            />
+          </TouchableOpacity>
         </View>
+
+        {showDropdown && (
+          <View style={{ backgroundColor: "#fff", padding: 10, marginTop: 10 }}>
+            <Text>Price Range</Text>
+            <TouchableOpacity onPress={() => handleFilter("price", "$")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedPrices.includes("$") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>$</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleFilter("price", "$$")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedPrices.includes("$$") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>$$</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleFilter("price", "$$$")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedPrices.includes("$$$") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>$$$</Text>
+              </View>
+            </TouchableOpacity>
+
+            <Text>Location</Text>
+            <TouchableOpacity onPress={() => handleFilter("location", "Central")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedLocations.includes("Central") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>Central</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleFilter("location", "North")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedLocations.includes("North") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>North</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleFilter("location", "South")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedLocations.includes("South") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>South</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleFilter("location", "East")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedLocations.includes("East") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>East</Text>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => handleFilter("location", "West")}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View
+                  style={{
+                    width: 20,
+                    height: 20,
+                    borderWidth: 1,
+                    borderColor: COLORS.black,
+                    marginRight: SIZES.base,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {selectedLocations.includes("West") && (
+                    <Image
+                      source={assets.tick}
+                      resizeMode="contain"
+                      style={{ width: 10, height: 10 }}
+                    />
+                  )}
+                </View>
+                <Text>West</Text>
+              </View>
+            </TouchableOpacity>
+
+            <Text>Appointment Availability</Text>
+          </View>
+        )}
+
       </View>
     </View>
   );

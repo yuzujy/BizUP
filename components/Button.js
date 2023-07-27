@@ -1,8 +1,9 @@
 import React from "react";
 import { TouchableOpacity, Text, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
 import { COLORS, SIZES, FONTS, SHADOWS } from "../constants";
+
+import { Stack, useRouter } from 'expo-router';
 
 export const CircleButton = ({ imgUrl, handlePress, ...props }) => {
   return (
@@ -34,20 +35,14 @@ export const MenuButton = ({ iconUrl, handlePress }) => {
     <TouchableOpacity style={{ width: 45, height: 45 }} onPress={handlePress}>
       <Image
         source={iconUrl}
-        resizeMode="cover"
+        resizeMode='cover'
         style={{ width: "100%", height: "100%" }}
       />
     </TouchableOpacity>
   );
 };
 
-export const RectButton = ({ minWidth, fontSize, ...props }) => {
-  const navigation = useNavigation();
-
-  const navigateToAppointmentSlots = () => {
-    navigation.navigate('apptSlots');
-  };
-
+export const RectButton = ({ minWidth, fontSize, handlePress, ...props }) => {
   return (
     <TouchableOpacity
       style={{
@@ -57,7 +52,7 @@ export const RectButton = ({ minWidth, fontSize, ...props }) => {
         minWidth: minWidth,
         ...props,
       }}
-      onPress={navigateToAppointmentSlots}
+      onPress={handlePress}
     >
       <Text
         style={{

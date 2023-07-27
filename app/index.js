@@ -21,7 +21,7 @@ export default function App() {
     if (username.length == 0 || password.length == 0) {
       alert("Required field is missing");
     } else {
-      var InsertURL = "http://192.168.0.102/BizUP/all_php_functions/login.php";
+      var InsertURL = "http://192.168.10.145/BizUP/all_php_functions/login.php";
       var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
