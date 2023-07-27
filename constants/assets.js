@@ -4,9 +4,6 @@ import heart from "../assets/icons/heart.png";
 import left from "../assets/icons/left.png";
 import search from "../assets/icons/search.png";
 import menu from "../assets/icons/menu.png";
-import filter from "../assets/icons/filter.png";
-import square from "../assets/icons/square.png";
-import tick from "../assets/icons/tick.png";
 
 import logo from "../assets/bizuplogo.png";
 import shop01 from "../assets/images/1.jpg";
@@ -29,9 +26,6 @@ export default {
   left,
   search,
   menu,
-  filter,
-  square,
-  tick,
 
   logo,
   shop01,

@@ -3,12 +3,12 @@ import React from "react";
 import { View, Image } from "react-native";
 
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
-import { SubInfo, EthPrice, ShopTitle } from "./SubInfo";
+import { SubInfo, EthPrice, NFTTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
 
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 
-const ShopCard = ({ data }) => {
+const NFTCard = ({ data }) => {
   //const navigation = useNavigation();
   const router = useRouter();
 
@@ -42,12 +42,12 @@ const ShopCard = ({ data }) => {
         <CircleButton imgUrl={assets.heart} right={10} top={10} />
       </View>
 
-      <SubInfo location={data.location} />
+      <SubInfo />
 
       <View style={{ width: "100%", padding: SIZES.font }}>
-        <ShopTitle
+        <NFTTitle
           title={data.name}
-          subTitle={data.services.join(' ')}
+          subTitle={data.creator}
           titleSize={SIZES.large}
           subTitleSize={SIZES.small}
         />
@@ -61,11 +61,10 @@ const ShopCard = ({ data }) => {
           }}
         >
           <EthPrice price={data.price} />
-          <RectButton 
-            RectButton 
+          <RectButton
             minWidth={120}
             fontSize={SIZES.font}
-            handlePress={() => router.push("Details", { data })}
+            handlePress={() => {router.push('../app/Details')}}
           />
         </View>
       </View>
@@ -73,4 +72,4 @@ const ShopCard = ({ data }) => {
   );
 };
 
-export default ShopCard;
+export default NFTCard;
