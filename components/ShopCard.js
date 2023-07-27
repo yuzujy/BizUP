@@ -6,7 +6,7 @@ import { COLORS, SIZES, SHADOWS, assets } from "../constants";
 import { SubInfo, EthPrice, ShopTitle } from "./SubInfo";
 import { RectButton, CircleButton } from "./Button";
 
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 
 const ShopCard = ({ data }) => {
   //const navigation = useNavigation();
@@ -61,11 +61,11 @@ const ShopCard = ({ data }) => {
           }}
         >
           <EthPrice price={data.price} />
-          <RectButton 
-            RectButton 
+          <RectButton
             minWidth={120}
             fontSize={SIZES.font}
-            handlePress={() => router.push("Details", { data })}
+            //handlePress={() => {router.push('../app/Details')}}
+            handlePress={() => router.push("Details", { data })} 
           />
         </View>
       </View>
