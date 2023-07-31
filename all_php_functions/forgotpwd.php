@@ -11,16 +11,21 @@ if ($conn) {
     $sql = "SELECT * FROM user_info WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
 
+    // Generate a random OTP (6 digits)
+    $otp = rand(100000, 999999);
+
+    // Store the OTP and email in the PHP session
+    session_start();
+    $_SESSION['otp'] = $otp;
+    $_SESSION['email'] = $email;
+
+    // Debugging
+    //echo "Generated OTP: " . $otp . "\n";
+    //echo "Stored OTP in forgotpwd.php: " . $_SESSION['otp'] . "\n";
+    //echo "Stored Email in forgotpwd.php: " . $_SESSION['email'] . "\n";
+
     if (mysqli_num_rows($result) > 0) {
         // Email found in the database, proceed with sending the OTP
-
-        // Generate a random OTP (6 digits)
-        $otp = rand(100000, 999999);
-
-        // Store the OTP and email in the PHP session
-        session_start();
-        $_SESSION['otp'] = $otp;
-        $_SESSION['email'] = $email;
 
         // Compose the email
         $to = $email;
