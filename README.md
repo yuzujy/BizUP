@@ -1,1 +1,3 @@
 Our team aims to develop a user-friendly application that will revolutionize how small/home-based shops manage their businesses. Our application will be designed to provide an efficient platform for business owners to offer users consolidated business information for ease of comparison. Our primary goal will be to provide a platform that fosters the growth of small businesses by streamlining the appointment-booking process, which would lead to increased business efficiency. Ultimately, our solution aims to create a better customer experience for all.
+
+For more information: https://docs.google.com/document/d/1oovo5KiE1-AfSA8RHUNudfAEgllVZdj9mIUbZpUC8Uo/edit
