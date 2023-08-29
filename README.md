@@ -1,14 +1,1 @@
-# Expo Router Example
-
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
-
-## 🚀 How to use
-
-```sh
-npx create-expo-app -e with-router
-```
-
-## 📝 Notes
-
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
+Our team aims to develop a user-friendly application that will revolutionize how small/home-based shops manage their businesses. Our application will be designed to provide an efficient platform for business owners to offer users consolidated business information for ease of comparison. Our primary goal will be to provide a platform that fosters the growth of small businesses by streamlining the appointment-booking process, which would lead to increased business efficiency. Ultimately, our solution aims to create a better customer experience for all.
